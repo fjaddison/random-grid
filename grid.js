@@ -28,11 +28,9 @@ function setup() {
         }
         grid.push(rowValues)
     }
-    console.log(cols - (padding * 2))
-    firstRun(1.5)
-    firstRun(2)
+    fillMajority(1.5)
+    fillMajority(3)
     fillRemainder()
-    console.log(rects)
 }
 
 function draw() {
@@ -46,15 +44,13 @@ function draw() {
     noLoop()
 }
 
-function firstRun(divisor) {
+function fillMajority(divisor) {
     let count = 0
-    while(count < 1500) {
+    while(count < 1000) {
         let randRow = round(random(rows - (padding * 2) - 1))
         let randCol = round(random(cols - (padding * 2) - 1))
-        let randHeight = round(random(1, (rows - (padding * 2) - randRow) / divisor))
-        let randWidth = round(random(1, (cols - (padding * 2) - randCol) / divisor))
-        // console.log(fits(randRow, randCol, randHeight, randWidth))
-        // console.log('row:', randRow, 'height:', randHeight)
+        let randHeight = round(random(1, (rows - padding - randRow) / divisor))
+        let randWidth = round(random(1, (cols - padding - randCol) / divisor))
         if (fits(randRow, randCol, randHeight, randWidth)) {
             occupy(randRow, randCol, randHeight, randWidth)
             let newRect = new RectInfo(randRow, randCol, randHeight, randWidth)
